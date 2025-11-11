@@ -40,8 +40,8 @@ def contact():
 
 # ---------- ADMIN ROUTES ----------
 
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "12345"  # change this!
+ADMIN_USERNAME = "vijay"
+ADMIN_PASSWORD = "81051"  # change this!
 
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
