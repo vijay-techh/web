@@ -282,50 +282,74 @@ summary = df.groupby(df.date.dt.to_period('M')).sales.sum()</pre>
     </main>
   </div>
 
-  <script>
-    // Mini chart demo
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const ctx = document.getElementById('miniChart').getContext('2d');
-      new Chart(ctx, {type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{label:'Revenue',data:[120,150,170,160,190,220],tension:0.4,fill:false}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{display:false}}}});
+ <script>
+  // Mini chart demo
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('miniChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Revenue',
+          data: [120, 150, 170, 160, 190, 220],
+          tension: 0.4,
+          fill: false
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { display: false } }
+        }
+      }
     });
+  });
 
-    // Projects filter
-    function filterProjects(type, el){
-      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-      el.classList.add('active');
-      const cards = document.querySelectorAll('#projectsGrid .project');
-      cards.forEach(card=>{
-        if(type==='all' || card.dataset.type===type) card.style.display='block'; else card.style.display='none';
-      });
-      document.getElementById('projects').scrollIntoView({behavior:'smooth'});
-    }
+  // Projects filter
+  function filterProjects(type, el) {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    const cards = document.querySelectorAll('#projectsGrid .project');
+    cards.forEach(card => {
+      if (type === 'all' || card.dataset.type === type) card.style.display = 'block';
+      else card.style.display = 'none';
+    });
+    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+  }
 
-    // Modal content for projects (example content)
-    function openProjectModal(e, id){
-      e.preventDefault();
-      const modal = document.getElementById('projectModal');
-      const content = document.getElementById('modalContent');
-      const examples = {
-        1: `<h2>Sales Forecast Dashboard</h2><p class='muted'>Power BI • Forecasting • SQL</p><p class='small muted'>This dashboard uses time-series decomposition and Prophet for baseline forecasts. It includes drill-through to product-level pages and scenario toggles for price and promotion effects.</p><p class='small'><strong>Deliverables:</strong> PBIX file, SQL scripts, documentation.</p><p><a class='link' href='https://github.com/yourusername/sales-forecast' target='_blank'>View repo</a></p>`,
-        2: `<h2>Automated ETL - Marketing Data</h2><p class='muted'>Python • Airflow • BigQuery</p><p class='small muted'>This pipeline ingests CSVs from ad platforms, standardizes schemas and loads partitioned tables into BigQuery. Uses Airflow for orchestration and pytest for pipeline tests.</p><p><a class='link' href='https://github.com/yourusername/marketing-etl' target='_blank'>View repo</a></p>`,
-        3: `<h2>Churn Prediction</h2><p class='muted'>scikit-learn • SHAP • Flask</p><p class='small muted'>Model optimized for recall on retention cohort, explanation via SHAP and a small Flask app to explore predictions per-customer.</p><p><a class='link' href='https://github.com/yourusername/churn-prediction' target='_blank'>View repo</a></p>`
-      };
-      content.innerHTML = examples[id] || '<p>Project details coming soon.</p>';
-      modal.style.display = 'flex';
-    }
-    function closeModal(){document.getElementById('projectModal').style.display='none';}
+  // Modal content for projects (example content)
+  function openProjectModal(e, id) {
+    e.preventDefault();
+    const modal = document.getElementById('projectModal');
+    const content = document.getElementById('modalContent');
+    const examples = {
+      1: `<h2>Sales Forecast Dashboard</h2><p class='muted'>Power BI • Forecasting • SQL</p><p class='small muted'>This dashboard uses time-series decomposition and Prophet for baseline forecasts. It includes drill-through to product-level pages and scenario toggles for price and promotion effects.</p><p class='small'><strong>Deliverables:</strong> PBIX file, SQL scripts, documentation.</p><p><a class='link' href='https://github.com/yourusername/sales-forecast' target='_blank'>View repo</a></p>`,
+      2: `<h2>Automated ETL - Marketing Data</h2><p class='muted'>Python • Airflow • BigQuery</p><p class='small muted'>This pipeline ingests CSVs from ad platforms, standardizes schemas and loads partitioned tables into BigQuery. Uses Airflow for orchestration and pytest for pipeline tests.</p><p><a class='link' href='https://github.com/yourusername/marketing-etl' target='_blank'>View repo</a></p>`,
+      3: `<h2>Churn Prediction</h2><p class='muted'>scikit-learn • SHAP • Flask</p><p class='small muted'>Model optimized for recall on retention cohort, explanation via SHAP and a small Flask app to explore predictions per-customer.</p><p><a class='link' href='https://github.com/yourusername/churn-prediction' target='_blank'>View repo</a></p>`
+    };
+    content.innerHTML = examples[id] || '<p>Project details coming soon.</p>';
+    modal.style.display = 'flex';
+  }
+  function closeModal() {
+    document.getElementById('projectModal').style.display = 'none';
+  }
 
-    // Contact form (basic client-side demo: opens mailto)
-    function sendContact(e){
-      e.preventDefault();
-      const f = e.target;
-      const name = encodeURIComponent(f.name.value);
-      const email = encodeURIComponent(f.email.value);
-      const msg = encodeURIComponent(f.message.value);
-      const subject = encodeURIComponent('Contact from portfolio — ' + name);
-      const body = `From: ${name} (${email})\n\n${msg}`;
-      window.location.href = `mailto:your.email@example.com?subject=${subject}&body=${encodeURIComponent(body)}`;
-    }
-  </script>
+  // Contact form (basic client-side demo: opens mailto)
+  function sendContact(e) {
+    e.preventDefault();
+    const f = e.target;
+    const name = encodeURIComponent(f.name.value);
+    const email = encodeURIComponent(f.email.value);
+    const msg = encodeURIComponent(f.message.value);
+    const subject = encodeURIComponent('Contact from portfolio — ' + name);
+    const body = `From: ${name} (${email})\n\n${msg}`;
+    window.location.href = `mailto:your.email@example.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+  }
+</script>
+
 </body>
 </html>
